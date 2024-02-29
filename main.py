@@ -33,7 +33,7 @@ def handle_yellow_movement(keys_pressed, yellow):
             yellow.x -= VEL
     if keys_pressed[pygame.K_d]:
             yellow.x += VEL
-     if keys_pressed[pygame.K_w]:
+    if keys_pressed[pygame.K_w]:
             yellow.y -= VEL
     if keys_pressed[pygame.K_s]:
             yellow.y += VEL
