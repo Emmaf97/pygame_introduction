@@ -15,7 +15,7 @@ BORDER = pygame.Rect(WIDTH // 2 - 5, 0, 10, HEIGHT)                             
 FPS = 60
 VEL = 3
 
-BULLET_SPEED = 4
+BULLET_SPEED = 7
 MAX_BULLETS = 3
 SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55,55
 
@@ -28,11 +28,12 @@ YELLOW_SPACESHIP_IMAGE = pygame.image.load(
 YELLOW_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT)), 90)
 RED_SPACESHIP_IMAGE = pygame.image.load(
     os.path.join("Assets", "spaceship_red.png")) 
+SPACE = pygame.transform.scale(pygame.image.load(os.path.join("Assets","space.png")), (WIDTH, HEIGHT))
                                                                                          # Resizing and rotating the Image to fit the screen.
 RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT)), 270)
 
-def draw_window(red, yellow,red_bullets, yellow_bullets):                                                            # creating a draw method to draw objects onto the screen.
-    WIN.fill((WHITE))
+def draw_window(red, yellow,red_bullets, yellow_bullets):                                # creating a draw method to draw objects onto the screen.
+    WIN.blit(SPACE, (0,0))
     pygame.draw.rect(WIN, BLACK, BORDER)
     WIN.blit(YELLOW_SPACESHIP, (yellow.x,yellow.y))                                      # Drawing the spaceship as a surface onto the screen
     WIN.blit(RED_SPACESHIP, (red.x,red.y)) 
@@ -71,19 +72,25 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):                   
         if red.colliderect(bullet):                                                      # checking if rectangle of spaceship and bullet collide.
             pygame.event.post(pygame.event.Event(RED_HIT))
             yellow_bullets.remove(bullet)                                                # if so removing bullet.
-    
+        elif bullet.x > WIDTH:
+            yellow_bullets.remove(bullet)
+            
     for bullet in red_bullets:
         bullet.x -= BULLET_SPEED
         if yellow.colliderect(bullet):                                                   # checking if rectangle of spaceship and bullet collide.
             pygame.event.post(pygame.event.Event(YELLOW_HIT))
-            red_bullets.remove(bullet) 
+            red_bullets.remove(bullet)
+        elif bullet.x < 0 :
+            red_bullets.remove(bullet)
             
 def main():                                                                              # setting the main game loop and capping the FPS to 60,
                                                                                          # so that it will be stable on all machines.
     red = pygame.Rect(700,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
-    yellow = pygame.Rect(100,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)  
+    yellow = pygame.Rect(100,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT) 
+    
     red_bullets = []   
-    yellow_bullets = []                                                              
+    yellow_bullets = []  
+                                                                
     clock = pygame.time.Clock()
     run = True
     while run:                                                                          # Infinite loop to run the game unless quite button is pressed.
@@ -94,12 +101,12 @@ def main():                                                                     
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LALT and len(yellow_bullets) < MAX_BULLETS:      # Creating and centering the bullet onto the yellow spaceship.
-                bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height//2 -2, 10, 5)
+                bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height//2 - 2, 10, 5)
                 yellow_bullets.append(bullet)
                 
                 
             if event.key == pygame.K_RALT and len(red_bullets) < MAX_BULLETS:
-                bullet = pygame.Rect(red.x, red.y + red.height//2 -2, 10, 5)
+                bullet = pygame.Rect(red.x, red.y + red.height//2 -2 , 10, 5)
                 red_bullets.append(bullet)
                 
                 
