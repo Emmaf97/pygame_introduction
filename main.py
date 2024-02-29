@@ -16,6 +16,9 @@ BORDER = pygame.Rect(WIDTH // 2 - 5, 0, 10, HEIGHT)                             
 
 
 HEALTH_FONT = pygame.font.SysFont("comicsans", 40)
+WINNER_FONT = pygame.font.SysFont("comicsans", 100)
+
+
 FPS = 60
 VEL = 3
 
@@ -94,6 +97,12 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):                   
         elif bullet.x < 0 :
             red_bullets.remove(bullet)
             
+def draw_winner(text):
+    draw_text = WINNER_FONT.render(text, 1, WHITE)
+    WIN.blit(draw_text, (WIDTH//2 - draw_text.get_width()//2, HEIGHT/2 - draw_text.get_height()//2))
+    pygame.display.update()
+    pygame.time.delay(5000)
+            
 def main():                                                                              # setting the main game loop and capping the FPS to 60,
                                                                                          # so that it will be stable on all machines.
     red = pygame.Rect(700,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
@@ -112,6 +121,7 @@ def main():                                                                     
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
         
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LALT and len(yellow_bullets) < MAX_BULLETS:      # Creating and centering the bullet onto the yellow spaceship.
@@ -135,7 +145,8 @@ def main():                                                                     
         if yellow_health <= 0:
             winner_text = "Red Wins!!"
         if winner_text != "":
-            pass
+            draw_winner(winner_text)
+            break
                 
                 
         keys_pressed = pygame.key.get_pressed()                                        # Storing what keys are currently being pressed down.
@@ -145,7 +156,7 @@ def main():                                                                     
         
         draw_window(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health)                                                       # Passing red and yellow to draw method to update positions
         
-    pygame.quit()
+    main()
     
     
 if __name__ == "__main__":                                                             # This is to prevent the file from running if imported to other files.
