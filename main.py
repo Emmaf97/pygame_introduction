@@ -42,13 +42,13 @@ def handle_yellow_movement(keys_pressed, yellow):
             yellow.y += VEL
 
 def handle_red_movement(keys_pressed, red):
-    if keys_pressed[pygame.K_LEFT]:
+    if keys_pressed[pygame.K_LEFT] and red.x - VEL > BORDER.x + BORDER.width:
             red.x -= VEL
-    if keys_pressed[pygame.K_RIGHT]:
+    if keys_pressed[pygame.K_RIGHT] and red.x + VEL +  red.width < WIDTH:
             red.x  += VEL
-    if keys_pressed[pygame.K_UP]:
+    if keys_pressed[pygame.K_UP] and red.y - VEL > 0:
             red.y -= VEL
-    if keys_pressed[pygame.K_DOWN]:
+    if keys_pressed[pygame.K_DOWN] and red.y + VEL + red.height < HEIGHT:
             red.y += VEL
             
 def main():                                                            # setting the main game loop and capping the FPS to 60,
