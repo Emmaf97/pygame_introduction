@@ -37,6 +37,17 @@ def handle_yellow_movement(keys_pressed, yellow):
             yellow.y -= VEL
     if keys_pressed[pygame.K_s]:
             yellow.y += VEL
+
+def handle_red_movement(keys_pressed, red):
+    if keys_pressed[pygame.K_LEFT]:
+            red.x -= VEL
+    if keys_pressed[pygame.K_RIGHT]:
+            red.x  += VEL
+    if keys_pressed[pygame.K_UP]:
+            red.y -= VEL
+    if keys_pressed[pygame.K_DOWN]:
+            red.y += VEL
+            
 def main():                                                            # setting the main game loop and capping the FPS to 60,
                                                                        # so that it will be stable on all machines.
     red = pygame.Rect(700,300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
@@ -51,6 +62,7 @@ def main():                                                            # setting
         
         keys_pressed = pygame.key.get_pressed()                       # Storing what keys are currently being pressed down.
         handle_yellow_movement(keys_pressed, yellow)
+        handle_red_movement(keys_pressed, red)
         
         draw_window(red, yellow)                                      # Passing red and yellow to draw method to update positions
         
