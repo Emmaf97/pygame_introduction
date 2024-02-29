@@ -14,15 +14,16 @@ SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55,40
                                                                        # in the event of different operating system
 YELLOW_SPACESHIP_IMAGE = pygame.image.load(
     os.path.join("Assets", "spaceship_yellow.png"))
-YELLOW_SPACESHIP = pygame.transform.scale(YELLOW_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT))
+YELLOW_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(YELLOW_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT)), 90)
 RED_SPACESHIP_IMAGE = pygame.image.load(
     os.path.join("Assets", "spaceship_red.png")) 
                                                                        # Resizing the Image to fit the screen.
-RED_SPACESHIP = pygame.transform.scale(RED_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT))
+RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMAGE, (SPACESHIP_WIDTH,SPACESHIP_HEIGHT)), 270)
 
 def draw_window():                                                     # creating a draw method to draw objects onto the screen.
     WIN.fill((WHITE))
     WIN.blit(YELLOW_SPACESHIP, (300,100))                              # Drawing the spaceship as a surface onto the screen
+    WIN.blit(RED_SPACESHIP, (700,100)) 
     pygame.display.update()
 
 
