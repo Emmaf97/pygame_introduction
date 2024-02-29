@@ -6,9 +6,11 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))                         # Setting
 pygame.display.set_caption("Space Game!!")                             # Setting the caption for window to be custom text.
 
 WHITE = (255,255,255)                                                  # Setting the background color as a variable.
+BLACK = (0,0,0)
+
+BORDER = pygame.Rect(WIDTH / 2 - 5, 0, 10, HEIGHT)                     # Creating a border in the center of the screen.
 
 FPS = 60
-
 VEL = 3
 
 SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55,40
@@ -24,6 +26,7 @@ RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMA
 
 def draw_window(red, yellow):                                          # creating a draw method to draw objects onto the screen.
     WIN.fill((WHITE))
+    pygame.draw.rect(WIN, BLACK, BORDER)
     WIN.blit(YELLOW_SPACESHIP, (yellow.x,yellow.y))                    # Drawing the spaceship as a surface onto the screen
     WIN.blit(RED_SPACESHIP, (red.x,red.y)) 
     pygame.display.update()
